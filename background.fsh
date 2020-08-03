@@ -1,29 +1,28 @@
-uniform sampler2D src;
-varying highp vec2 coord;
+uniform mediump sampler2D src;
+varying mediump vec2 coord;
 
-const vec3 top = vec3(0.17, 0.17, 0.17);
-const vec3 bottom = vec3(0.17, 0.17, 0.17);
-const vec3 line_color = vec3(0.1, 0.1, 0.1);
-const float widthFactor = 3.0;
+const mediump vec3 top = vec3(0.17, 0.17, 0.17);
+const mediump vec3 bottom = vec3(0.17, 0.17, 0.17);
+const mediump vec3 line_color = vec3(0.1, 0.1, 0.1);
+const mediump float widthFactor = 3.0;
 
-uniform float iTime;
-uniform float opacity_value;
+uniform mediump float iTime;
+uniform mediump float opacity_value;
 
-//const float iTime = 0.3;
-const vec3 iResolution = vec3(1.0, 1.0, 1.0);
+const mediump vec3 iResolution = vec3(1.0, 1.0, 1.0);
 
-vec3 calcSine(vec2 uv, float speed,
-              float frequency, float amplitude, float shift, float offset,
-              vec3 color, float width, float exponent, bool dir)
+vec3 calcSine(mediump vec2 uv, mediump float speed,
+              mediump float frequency, mediump float amplitude, mediump float shift, mediump float offset,
+              mediump vec3 color, mediump float width, mediump float exponent, bool dir)
 {
-    float angle = iTime * speed * frequency * -1.0 + (shift + uv.x) * 2.0;
+    mediump float angle = iTime * speed * frequency * -1.0 + (shift + uv.x) * 2.0;
 
-    float y = sin(angle) * amplitude + offset;
-    float clampY = clamp(0.0, y, y);
-    float diffY = y - uv.y;
+    mediump float y = sin(angle) * amplitude + offset;
+    mediump float clampY = clamp(0.0, y, y);
+    mediump float diffY = y - uv.y;
 
-    float dsqr = distance(y, uv.y);
-    float scale = 1.0;
+    mediump float dsqr = distance(y, uv.y);
+    mediump float scale = 1.0;
 
     if(dir && diffY > 0.0)
     {
@@ -39,18 +38,12 @@ vec3 calcSine(vec2 uv, float speed,
     return min(color * scale, color);
 }
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord )
-{
-
-
-}
-
 void main(void)
 {
     lowp vec4 tex = texture2D(src, coord);
 
-    vec2 uv = coord.xy / iResolution.xy;
-    vec3 color = vec3(mix(bottom, top, uv.y));
+    mediump vec2 uv = coord.xy / iResolution.xy;
+    mediump vec3 color = vec3(mix(bottom, top, uv.y));
 
     color += calcSine(uv, 0.2, 0.20, 0.20, 0.0, 0.6, line_color, 0.10, 15.0, false);
     color += calcSine(uv, 0.4, 0.40, 0.15, 0.0, 0.6, line_color, 0.10, 17.0, false);
