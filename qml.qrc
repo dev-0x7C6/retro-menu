@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>GameButton.qml</file>
+        <file>CustomRoundButton.qml</file>
+        <file>Clock.qml</file>
+        <file>background.fsh</file>
+        <file>background.vsh</file>
+        <file>Background.qml</file>
+    </qresource>
+</RCC>
