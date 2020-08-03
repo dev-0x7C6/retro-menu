@@ -11,7 +11,7 @@ uniform mediump float opacity_value;
 
 const mediump vec3 iResolution = vec3(1.0, 1.0, 1.0);
 
-vec3 calcSine(mediump vec2 uv, mediump float speed,
+mediump vec3 calcSine(mediump vec2 uv, mediump float speed,
               mediump float frequency, mediump float amplitude, mediump float shift, mediump float offset,
               mediump vec3 color, mediump float width, mediump float exponent, bool dir)
 {
