@@ -12,6 +12,7 @@ Item {
 
         property real iTime : 0
         property real opacity_value: background.opacity
+        property variant src: background
 
         Timer {
             repeat: true
