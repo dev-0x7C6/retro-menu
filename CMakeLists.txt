@@ -23,8 +23,15 @@ set (sources
     "process-runner.hpp"
 )
 
-find_package(Qt5QuickCompiler)
-qtquick_compiler_add_resources(RESOURCES qml.qrc)
+option(ENABLE_QT_QUICK_COMPILER OFF)
+
+
+if (ENABLE_QT_QUICK_COMPILER)
+    find_package(Qt5QuickCompiler)
+    qtquick_compiler_add_resources(RESOURCES qml.qrc)
+else()
+    set(RESOURCES qml.qrc)
+endif()
 
 add_executable(${PROJECT_NAME} ${sources} ${RESOURCES})
 
