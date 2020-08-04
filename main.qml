@@ -39,7 +39,7 @@ Window {
         id: background
 
         function onFinished() {
-            process.start(programToRun);
+            process.schedule(programToRun);
             Qt.quit();
         }
 

@@ -8,11 +8,11 @@
 #include <desktop-file-searcher.hpp>
 #include <menu-entry-model.hpp>
 #include <pixmap-provider.hpp>
-#include <process-runner.hpp>
+#include <process-schedule.hpp>
 
 constexpr auto PIXMAP_CACHE_SIZE = 32 * 1024; // 32 MiB
 
-int main(int argc, char *argv[]) {
+int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	QGuiApplication app(argc, argv);
 	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 
@@ -26,14 +26,17 @@ int main(int argc, char *argv[]) {
 	sortFilter.setSourceModel(&model);
 	sortFilter.sort(0, Qt::AscendingOrder);
 
-	ProcessRunner runner;
-
 	engine.rootContext()->setContextProperty("gameLibraryModel", &model);
-	engine.rootContext()->setContextProperty("process", &runner);
+	engine.rootContext()->setContextProperty("process", &schedule);
 	engine.rootContext()->setContextProperty("GameLibrarySortedModel", &sortFilter);
 	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 	if (engine.rootObjects().isEmpty())
 		return -1;
 
 	return app.exec();
+}
+
+int main(int argc, char *argv[]) {
+	ProcessSchedule schedule(argv[0]);
+	return gui_main(argc, argv, schedule);
 }

@@ -19,8 +19,8 @@ set (sources
     "menu-entry.hpp"
     "pixmap-provider.cpp"
     "pixmap-provider.hpp"
-    "process-runner.cpp"
-    "process-runner.hpp"
+    "process-schedule.cpp"
+    "process-schedule.hpp"
 )
 
 option(ENABLE_QT_QUICK_COMPILER OFF)
