@@ -1,7 +1,9 @@
 #pragma once
 
-class QString;
 class QIcon;
+class QString;
+class QStringList;
 
-using string = QString;
 using icon = QIcon;
+using string = QString;
+using string_list = QStringList;

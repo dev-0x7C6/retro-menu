@@ -36,7 +36,18 @@ int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	return app.exec();
 }
 
+QString args_to_string(int argc, char *argv[]) {
+	QString ret;
+
+	for (auto i = 0; i < argc - 1; ++i)
+		ret += QString(argv[i]) + " ";
+	ret += argv[argc - 1];
+
+	return ret;
+}
+
 int main(int argc, char *argv[]) {
-	ProcessSchedule schedule(argv[0]);
+
+	ProcessSchedule schedule(args_to_string(argc, argv));
 	return gui_main(argc, argv, schedule);
 }
