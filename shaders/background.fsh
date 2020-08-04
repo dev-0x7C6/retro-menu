@@ -1,13 +1,13 @@
 uniform mediump sampler2D src;
 varying mediump vec2 coord;
 
-const mediump vec3 top = vec3(0.17, 0.17, 0.17);
-const mediump vec3 bottom = vec3(0.17, 0.17, 0.17);
-const mediump vec3 line_color = vec3(0.1, 0.1, 0.1);
 const mediump float widthFactor = 3.0;
 
 uniform mediump float iTime;
 uniform mediump float opacity_value;
+
+uniform mediump vec3 bg_color;
+uniform mediump vec3 line_color;
 
 const mediump vec3 iResolution = vec3(1.0, 1.0, 1.0);
 
@@ -43,7 +43,7 @@ void main(void)
     lowp vec4 tex = texture2D(src, coord);
 
     mediump vec2 uv = coord.xy / iResolution.xy;
-    mediump vec3 color = vec3(mix(bottom, top, uv.y));
+    mediump vec3 color = bg_color;
 
     color += calcSine(uv, 0.2, 0.20, 0.20, 0.0, 0.6, line_color, 0.10, 15.0, false);
     color += calcSine(uv, 0.4, 0.40, 0.15, 0.0, 0.6, line_color, 0.10, 17.0, false);

@@ -37,32 +37,10 @@ Window {
 
     Background {
         id: background
-        opacity: 0.0
 
-		SequentialAnimation {
-			id: startGameAnimation
-
-            PauseAnimation { duration: 500 }
-			ParallelAnimation {
-                NumberAnimation { target: background; property: "scale"; to: 0.9; duration: 250 }
-                NumberAnimation { target: background; property: "opacity"; to: 0; duration: 250 }
-                ColorAnimation { target: mainWindow; property: "color"; to: "black"; duration: 1000 }
-				loops: 1
-			}
-
-            onFinished: {
-                process.start(programToRun);
-                Qt.quit();
-            }
-		}
-
-
-        ParallelAnimation {
-            NumberAnimation { target: background; property: "scale"; to: 1; duration: 500 }
-            NumberAnimation { target: background; property: "opacity"; to: 1; duration: 500 }
-            ColorAnimation { target: mainWindow; property: "color"; to: "#2d2d2d"; duration: 1000 }
-            loops: 1
-            running: true
+        function onFinished() {
+            process.start(programToRun);
+            Qt.quit();
         }
 
         Clock {
@@ -101,7 +79,7 @@ Window {
 				flow: GridView.FlowTopToBottom
 				snapMode: GridView.SnapOneRow
 
-				delegate: GameButton {
+                delegate: EntryButton {
 					width: GridView.view.cellWidth
 					height: GridView.view.cellHeight
                     coverImage: cover
@@ -109,7 +87,7 @@ Window {
 					function onClicked() {
 						GridView.view.currentIndex = index
 
-						startGameAnimation.start()
+                        background.fadeOut.start();
                         programToRun = exec
 						updateLabel()
 					}
