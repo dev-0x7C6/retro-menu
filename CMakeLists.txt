@@ -8,7 +8,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Core Quick Gamepad REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick Gamepad Svg REQUIRED)
 
 set (sources
     "src/desktop-file-searcher.cpp"
@@ -36,6 +36,6 @@ endif()
 add_executable(${PROJECT_NAME} ${sources} ${RESOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick Qt5::Svg)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)

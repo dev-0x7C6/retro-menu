@@ -16,6 +16,11 @@ int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	QGuiApplication app(argc, argv);
 	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 
+	if (app.platformName() != "xcb") {
+		QIcon::setThemeName("hicolor");
+		QIcon::setThemeSearchPaths({"/usr/share/icons"});
+	}
+
 	MenuEntryModel model;
 	desktop_file_search([&model](menu_entry &&entry) { model.emplace(std::move(entry)); });
 
