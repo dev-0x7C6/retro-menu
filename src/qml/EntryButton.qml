@@ -87,7 +87,6 @@ Item {
 			if (parent.focus === true) {
 				clickAnimation.start()
 				fadeOutLoader.active = true;
-				console.log(parent.x)
 			}
 
 			parent.forceActiveFocus()

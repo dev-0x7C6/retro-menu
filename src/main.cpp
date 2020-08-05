@@ -29,7 +29,7 @@ int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	engine.rootContext()->setContextProperty("gameLibraryModel", &model);
 	engine.rootContext()->setContextProperty("process", &schedule);
 	engine.rootContext()->setContextProperty("GameLibrarySortedModel", &sortFilter);
-	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+	engine.load(QUrl(QStringLiteral("qrc:/src/qml/MainWindow.qml")));
 	if (engine.rootObjects().isEmpty())
 		return -1;
 

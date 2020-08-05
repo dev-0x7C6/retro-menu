@@ -33,8 +33,8 @@ Item {
             onTriggered: parent.iTime += (interval / 100.0);
         }
 
-        vertexShader: "qrc:/shaders/background.vsh"
-        fragmentShader: "qrc:/shaders/background.fsh"
+        vertexShader: "qrc:/src/shaders/background.vsh"
+        fragmentShader: "qrc:/src/shaders/background.fsh"
     }
 
     Item {

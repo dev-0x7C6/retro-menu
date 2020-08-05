@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>EntryButton.qml</file>
-        <file>CustomRoundButton.qml</file>
-        <file>Clock.qml</file>
-        <file>shaders/background.fsh</file>
-        <file>shaders/background.vsh</file>
-        <file>Background.qml</file>
+        <file>src/qml/Background.qml</file>
+        <file>src/qml/Clock.qml</file>
+        <file>src/qml/CustomRoundButton.qml</file>
+        <file>src/qml/EntryButton.qml</file>
+        <file>src/qml/MainWindow.qml</file>
+        <file>src/shaders/background.fsh</file>
+        <file>src/shaders/background.vsh</file>
     </qresource>
 </RCC>

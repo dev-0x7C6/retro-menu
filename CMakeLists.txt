@@ -11,16 +11,16 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5 COMPONENTS Core Quick Gamepad REQUIRED)
 
 set (sources
-    "desktop-file-searcher.cpp"
-    "desktop-file-searcher.hpp"
-    "main.cpp"
-    "menu-entry-model.cpp"
-    "menu-entry-model.hpp"
-    "menu-entry.hpp"
-    "pixmap-provider.cpp"
-    "pixmap-provider.hpp"
-    "process-schedule.cpp"
-    "process-schedule.hpp"
+    "src/desktop-file-searcher.cpp"
+    "src/desktop-file-searcher.hpp"
+    "src/main.cpp"
+    "src/menu-entry-model.cpp"
+    "src/menu-entry-model.hpp"
+    "src/menu-entry.hpp"
+    "src/pixmap-provider.cpp"
+    "src/pixmap-provider.hpp"
+    "src/process-schedule.cpp"
+    "src/process-schedule.hpp"
 )
 
 option(ENABLE_QT_QUICK_COMPILER OFF)
@@ -34,6 +34,7 @@ else()
 endif()
 
 add_executable(${PROJECT_NAME} ${sources} ${RESOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick)
 

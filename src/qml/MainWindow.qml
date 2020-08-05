@@ -98,7 +98,8 @@ Window {
 				}
 
                 onCurrentIndexChanged: {
-                    currentItem.updateLabel();
+                    if (currentItem != null)
+                        currentItem.updateLabel()
                 }
 
 				highlight: Rectangle {
