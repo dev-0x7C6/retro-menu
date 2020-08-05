@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QIcon>
 #include <QPixmapCache>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
