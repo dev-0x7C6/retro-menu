@@ -4,21 +4,56 @@
 #include <QIcon>
 #include <QPixmapCache>
 
-using icon = QIcon;
-using string = QString;
+#include <common.hpp>
 
 namespace {
+
+string_list provide_matches(const string_list &paths, const string &match) {
+	string_list ret;
+
+	for (const auto &path : paths) {
+		QDirIterator it(path, {match + ".*"});
+		while (it.hasNext())
+			ret += it.next();
+	}
+
+	return ret;
+};
+
+std::optional<icon> preferred_ext_icon(const string_list &paths, const string_list &exts) {
+	for (const auto &path : paths) {
+		for (const auto &ext : exts)
+			if (path.contains("." + ext))
+				return QIcon(path);
+	}
+
+	return std::nullopt;
+}
+
+std::optional<icon> preferred_size_icon(const string_list &paths, std::initializer_list<int> sizes) {
+	for (const auto &path : paths) {
+		for (const auto &size : sizes)
+			if (path.contains(string::number(size) + "x" + string::number(size)))
+				return QIcon(path);
+	}
+
+	if (!paths.isEmpty())
+		return QIcon(paths.last());
+
+	return std::nullopt;
+}
 
 icon provide_icon_from_theme(const string &path) {
 	auto ret = icon::fromTheme(path);
 
 	if (ret.isNull()) {
-		QDirIterator it("/usr/share/pixmaps", {path + ".*"});
-		while (it.hasNext()) {
-			ret = QIcon(it.next());
-			if (!ret.isNull())
-				return ret;
-		}
+		const auto matches = provide_matches({"/usr/share/pixmaps", "/usr/share/icons"}, path);
+
+		if (auto icon = preferred_ext_icon(matches, {"svg"}); icon.has_value())
+			return icon.value();
+
+		if (auto icon = preferred_size_icon(matches, {256, 128, 96, 64, 48, 32, 24, 22, 16}); icon.has_value())
+			return icon.value();
 	}
 
 	return ret;
