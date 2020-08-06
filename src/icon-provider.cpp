@@ -13,11 +13,10 @@ std::optional<icon> preferred_ext_icon(const string_list &paths, const string_li
 }
 
 std::optional<icon> preferred_size_icon(const string_list &paths, std::initializer_list<int> sizes) {
-	for (const auto &path : paths) {
-		for (const auto &size : sizes)
+	for (const auto &size : sizes)
+		for (const auto &path : paths)
 			if (path.contains(string::number(size) + "x" + string::number(size)))
 				return QIcon(path);
-	}
 
 	if (!paths.isEmpty())
 		return QIcon(paths.last());
