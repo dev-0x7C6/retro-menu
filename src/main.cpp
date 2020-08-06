@@ -4,6 +4,7 @@
 #include <QQmlContext>
 #include <QSettings>
 #include <QSortFilterProxyModel>
+#include <QDir>
 
 #include <desktop-file-searcher.hpp>
 #include <menu-entry-model.hpp>
@@ -19,8 +20,10 @@ int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	MenuEntryModel model;
 	desktop_file_search([&model](menu_entry &&entry) { model.emplace(std::move(entry)); });
 
+	IconProvider iconProvider({"/usr/share/pixmaps", "/usr/share/icons", QDir::homePath() + "/.local/share/icons"});
+
 	QQmlApplicationEngine engine;
-	engine.addImageProvider("icons", new PixmapProvider);
+	engine.addImageProvider("icons", new PixmapProvider(iconProvider));
 	QSortFilterProxyModel sortFilter;
 	sortFilter.setSortRole(MenuEntryModel::NameRole);
 	sortFilter.setSourceModel(&model);

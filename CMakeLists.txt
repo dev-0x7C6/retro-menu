@@ -13,6 +13,8 @@ find_package(Qt5 COMPONENTS Core Quick Gamepad Svg REQUIRED)
 set (sources
     "src/desktop-file-searcher.cpp"
     "src/desktop-file-searcher.hpp"
+    "src/icon-provider.cpp"
+    "src/icon-provider.hpp"
     "src/main.cpp"
     "src/menu-entry-model.cpp"
     "src/menu-entry-model.hpp"
