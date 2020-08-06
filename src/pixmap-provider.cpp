@@ -12,9 +12,10 @@ string_list provide_matches(const string_list &paths, const string &match) {
 	string_list ret;
 
 	for (const auto &path : paths) {
-		QDirIterator it(path, {match + ".*"});
-		while (it.hasNext())
+		QDirIterator it(path, {match + ".*"}, QDir::NoFilter, QDirIterator::Subdirectories);
+		while (it.hasNext()) {
 			ret += it.next();
+		}
 	}
 
 	return ret;
@@ -47,7 +48,7 @@ icon provide_icon_from_theme(const string &path) {
 	auto ret = icon::fromTheme(path);
 
 	if (ret.isNull()) {
-		const auto matches = provide_matches({"/usr/share/pixmaps", "/usr/share/icons"}, path);
+		const auto matches = provide_matches({"/usr/share/pixmaps", "/usr/share/icons", QDir::homePath() + "/.local/share/icons"}, path);
 
 		if (auto icon = preferred_ext_icon(matches, {"svg"}); icon.has_value())
 			return icon.value();
