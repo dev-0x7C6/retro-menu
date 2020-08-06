@@ -5,6 +5,8 @@
 #include <QSettings>
 #include <QDir>
 
+#include <iostream>
+
 using namespace ::libretro;
 
 string read_string(const settings &settings, string &&key, const string &default_value = {}) {
@@ -37,6 +39,11 @@ core_info libretro::load_core_info(const file_info &file) noexcept {
 		fw.path = read(string("firmware" + string::number(i) + "_path"));
 		fw.is_optional = (read(string("firmware" + string::number(i) + "_opt")) == "true");
 		fw.is_found = file::exists(string(firmware_dir) + dir::separator() + fw.path);
+
+		if (!fw.is_found && !fw.is_optional) {
+			std::cerr << "core: " << info.name.toStdString() << " expects firmware: " << fw.path.toStdString() << std::endl;
+		}
+
 		info.firmware.emplace_back(std::move(fw));
 	}
 
