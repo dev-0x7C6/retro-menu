@@ -10,11 +10,25 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt5 COMPONENTS Core Quick Gamepad Svg REQUIRED)
 
+set(LIBRETRO_CORE_INFO_PATH "/usr/share/libretro/info" CACHE PATH "Path to libretro info files")
+set(LIBRETRO_CORE_PATH "/usr/lib/libretro" CACHE PATH "Path to libretro cores")
+set(LIBRETRO_FIRMWARE_PATH "/usr/share/libretro/system" CACHE PATH "Path to libretro firmware, bioses and etc.")
+
+configure_file("src/config.hpp.in" "config.hpp")
+
 set (sources
+    "src/config.hpp"
     "src/desktop-file-searcher.cpp"
     "src/desktop-file-searcher.hpp"
     "src/icon-provider.cpp"
     "src/icon-provider.hpp"
+    "src/libretro/core-info.cpp"
+    "src/libretro/core-info.hpp"
+    "src/libretro/core-library.cpp"
+    "src/libretro/core-library.hpp"
+    "src/libretro/firmware-info.cpp"
+    "src/libretro/firmware-info.hpp"
+    "src/libretro/paths.hpp"
     "src/main.cpp"
     "src/menu-entry-model.cpp"
     "src/menu-entry-model.hpp"

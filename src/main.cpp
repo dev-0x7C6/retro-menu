@@ -7,6 +7,7 @@
 #include <QDir>
 
 #include <desktop-file-searcher.hpp>
+#include <libretro/core-library.hpp>
 #include <menu-entry-model.hpp>
 #include <pixmap-provider.hpp>
 #include <process-schedule.hpp>
@@ -14,6 +15,8 @@
 constexpr auto PIXMAP_CACHE_SIZE = 32 * 1024; // 32 MiB
 
 int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
+	libretro::CoreLibrary library;
+
 	QGuiApplication app(argc, argv);
 	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 

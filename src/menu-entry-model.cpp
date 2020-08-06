@@ -26,7 +26,7 @@ QHash<int, QByteArray> MenuEntryModel::roleNames() const {
 	return {{PlatformRole, "platform"}, {ExecuteRole, "exec"}, {FilePathRole, "rom"}, {FileCoverRole, "cover"}, {NameRole, "name"}, {UsageCountRole, "usageCount"}};
 }
 
-bool MenuEntryModel::setData(const QModelIndex &index, const QVariant &value, int role) {
+bool MenuEntryModel::setData(const QModelIndex &index, const QVariant &, int role) {
 	if (EntryRole::UsageCountRole == role) {
 		m_games[static_cast<std::size_t>(index.row())].usage_count++;
 		return true;
