@@ -1,5 +1,5 @@
-#include <libretro/core-library.hpp>
-#include <libretro/paths.hpp>
+#include <core-library.hpp>
+#include <paths.hpp>
 
 #include <QDirIterator>
 

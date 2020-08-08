@@ -1,5 +1,5 @@
-#include <libretro/core-info.hpp>
-#include <libretro/paths.hpp>
+#include <core-info.hpp>
+#include <paths.hpp>
 
 #include <QFileInfo>
 #include <QSettings>

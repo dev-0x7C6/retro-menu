@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libretro/core-info.hpp>
+#include <core-info.hpp>
 
 namespace libretro {
 

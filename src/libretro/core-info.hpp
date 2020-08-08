@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libretro/firmware-info.hpp>
+#include <firmware-info.hpp>
 
 #include <QStringList>
 

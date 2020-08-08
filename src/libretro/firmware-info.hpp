@@ -2,7 +2,7 @@
 
 #include <QString>
 
-#include <common.hpp>
+#include <../common.hpp>
 
 struct firmware_info {
 	string description;

@@ -11,7 +11,10 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5 COMPONENTS Core Quick Gamepad Svg REQUIRED)
 
 include("cmake/paths.cmake")
+
 configure_file("src/config.hpp.in" "config.hpp")
+
+add_subdirectory("src/libretro")
 
 set (sources
     "src/config.hpp"
@@ -19,13 +22,6 @@ set (sources
     "src/desktop-file-searcher.hpp"
     "src/icon-provider.cpp"
     "src/icon-provider.hpp"
-    "src/libretro/core-info.cpp"
-    "src/libretro/core-info.hpp"
-    "src/libretro/core-library.cpp"
-    "src/libretro/core-library.hpp"
-    "src/libretro/firmware-info.cpp"
-    "src/libretro/firmware-info.hpp"
-    "src/libretro/paths.hpp"
     "src/main.cpp"
     "src/menu-entry-model.cpp"
     "src/menu-entry-model.hpp"
@@ -48,7 +44,6 @@ endif()
 
 add_executable(${PROJECT_NAME} ${sources} ${RESOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
-
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick Qt5::Svg)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick Qt5::Svg libretro-core-library)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
