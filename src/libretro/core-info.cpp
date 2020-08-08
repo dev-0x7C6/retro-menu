@@ -4,6 +4,7 @@
 #include <QDirIterator>
 #include <QFileInfo>
 #include <QSettings>
+#include <QSet>
 
 #include <iostream>
 
@@ -27,9 +28,17 @@ core_info libretro::load_core_info(const file_info &file) noexcept {
 		return key.split('|');
 	};
 
-	info.supported_extensions = split(read("supported_extensions"));
+	info.corename = read("corename");
+	info.display_version = read("display_version");
+	info.license = read("license");
+	info.manufacturer = read("manufacturer");
+	info.permissions = read("permissions");
+	info.systemid = read("systemid");
+	info.systemname = read("systemname");
+
 	info.authors = split(read("authors"));
 	info.display_name = read("display_name");
+	info.supported_extensions = split(read("supported_extensions"));
 
 	const auto firmware_count = read("firmware_count").toInt();
 
@@ -57,6 +66,30 @@ core_info_list libretro::prepare_core_info_list(const string &path) noexcept
 	dir_iterator it(path, {"*.info"});
 	while (it.hasNext())
 		ret.emplace_back(load_core_info(it.next()));
+
+	sort(ret.begin(), ret.end(), [](auto &&a, auto &&b) {
+		return a.name < b.name;
+	});
+
+	return ret;
+}
+
+core_list libretro::prepare_core_list(const string &path) noexcept
+{
+	core_list ret;
+
+	dir_iterator it(path, {"*.so"});
+	while (it.hasNext()) {
+		const auto info = file_info(it.next());
+		core item;
+		item.name = info.baseName();
+		item.full_name = info.fileName();
+		ret.emplace_back(std::move(item));
+	}
+
+	std::sort(ret.begin(), ret.end(), [](auto &&a, auto &&b) {
+		return a.full_name < b.full_name;
+	});
 
 	return ret;
 }
