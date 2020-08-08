@@ -1,6 +1,7 @@
 #pragma once
 
 #include <firmware-info.hpp>
+#include <paths.hpp>
 
 #include <QStringList>
 
@@ -30,5 +31,6 @@ struct core_info {
 using core_info_list = std::vector<core_info>;
 
 core_info load_core_info(const file_info &file) noexcept;
+core_info_list prepare_core_info_list(const string &path = {core_info_dir}) noexcept;
 
 } // namespace libretro

@@ -9,6 +9,6 @@ public:
 	CoreLibrary();
 
 private:
-	core_info_list m_cores;
+	core_info_list m_cores{prepare_core_info_list()};
 };
 } // namespace libretro

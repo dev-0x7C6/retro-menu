@@ -1,9 +1,9 @@
 #include <core-info.hpp>
 #include <paths.hpp>
 
+#include <QDirIterator>
 #include <QFileInfo>
 #include <QSettings>
-#include <QDir>
 
 #include <iostream>
 
@@ -48,4 +48,15 @@ core_info libretro::load_core_info(const file_info &file) noexcept {
 	}
 
 	return info;
+}
+
+core_info_list libretro::prepare_core_info_list(const string &path) noexcept
+{
+	core_info_list ret;
+
+	dir_iterator it(path, {"*.info"});
+	while (it.hasNext())
+		ret.emplace_back(load_core_info(it.next()));
+
+	return ret;
 }

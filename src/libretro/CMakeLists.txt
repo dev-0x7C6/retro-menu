@@ -1,5 +1,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+configure_file("config.hpp.in" "config.hpp")
+
 set (libretro-library-sources
 	"core-info.cpp"
 	"core-info.hpp"
