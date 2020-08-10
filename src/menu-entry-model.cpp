@@ -1,14 +1,14 @@
 #include "menu-entry-model.hpp"
 
-QVariant MenuEntryModel::data(int i, int role) const {
+auto MenuEntryModel::data(int i, int role) const -> QVariant {
 	return data(index(i, 0), role);
 }
 
-int MenuEntryModel::rowCount(const QModelIndex &) const {
+auto MenuEntryModel::rowCount(const QModelIndex &) const -> int {
 	return static_cast<int>(m_games.size());
 }
 
-QVariant MenuEntryModel::data(const QModelIndex &index, int role) const {
+auto MenuEntryModel::data(const QModelIndex &index, int role) const -> QVariant {
 	const auto &entry = m_games.at(static_cast<std::size_t>(index.row()));
 
 	switch (role) {
@@ -22,11 +22,11 @@ QVariant MenuEntryModel::data(const QModelIndex &index, int role) const {
 	return {};
 }
 
-QHash<int, QByteArray> MenuEntryModel::roleNames() const {
+auto MenuEntryModel::roleNames() const -> QHash<int, QByteArray> {
 	return {{PlatformRole, "platform"}, {ExecuteRole, "exec"}, {FilePathRole, "rom"}, {FileCoverRole, "cover"}, {NameRole, "name"}, {UsageCountRole, "usageCount"}};
 }
 
-bool MenuEntryModel::setData(const QModelIndex &index, const QVariant &, int role) {
+auto MenuEntryModel::setData(const QModelIndex &index, const QVariant &, int role) -> bool {
 	if (EntryRole::UsageCountRole == role) {
 		m_games[static_cast<std::size_t>(index.row())].usage_count++;
 		return true;

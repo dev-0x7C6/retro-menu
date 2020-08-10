@@ -2,7 +2,7 @@
 
 #include <QDirIterator>
 
-std::optional<icon> preferred_ext_icon(const string_list &paths, const string_list &exts) {
+auto preferred_ext_icon(const string_list &paths, const string_list &exts) -> std::optional<icon> {
 	for (const auto &path : paths) {
 		for (const auto &ext : exts)
 			if (path.contains("." + ext))
@@ -12,7 +12,7 @@ std::optional<icon> preferred_ext_icon(const string_list &paths, const string_li
 	return std::nullopt;
 }
 
-std::optional<icon> preferred_size_icon(const string_list &paths, std::initializer_list<int> sizes) {
+auto preferred_size_icon(const string_list &paths, std::initializer_list<int> sizes) -> std::optional<icon> {
 	for (const auto &size : sizes)
 		for (const auto &path : paths)
 			if (path.contains(string::number(size) + "x" + string::number(size)))
@@ -34,7 +34,7 @@ IconProvider::IconProvider(const string_list &search_paths) {
 	}
 }
 
-icon IconProvider::getIcon(const string &id) {
+auto IconProvider::getIcon(const string &id) -> icon {
 	if (!m_iconMap.contains(id))
 		return {};
 

@@ -29,7 +29,7 @@ struct desktop_file_properties {
 	string name;
 };
 
-string read_settings(QSettings &settings, string &&key, string &&default_value = {}) {
+auto read_settings(QSettings &settings, string &&key, string &&default_value = {}) -> string {
 	auto ret = settings.value(key);
 
 	if (ret.isNull())
@@ -38,7 +38,7 @@ string read_settings(QSettings &settings, string &&key, string &&default_value =
 	return ret.toString();
 }
 
-std::optional<desktop_file_properties> load_desktop_file(std::string_view &&path) {
+auto load_desktop_file(std::string_view &&path) -> std::optional<desktop_file_properties> {
 	QSettings settings(QString::fromUtf8(path.data(), path.size()), QSettings::IniFormat);
 	settings.beginGroup("Desktop Entry");
 

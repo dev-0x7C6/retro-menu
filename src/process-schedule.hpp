@@ -8,7 +8,7 @@
 class ProcessSchedule : public QObject {
 	Q_OBJECT
 public:
-	ProcessSchedule(const string &program, QObject *parent = nullptr);
+	ProcessSchedule(string program, QObject *parent = nullptr);
 	virtual ~ProcessSchedule();
 
 	Q_INVOKABLE void schedule(const QString &);

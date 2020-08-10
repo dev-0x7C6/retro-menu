@@ -10,7 +10,7 @@ PixmapProvider::PixmapProvider(IconProvider &iconProvider)
 		: QQuickImageProvider(QQuickImageProvider::Pixmap)
 		, m_iconProvider(iconProvider) {}
 
-QPixmap PixmapProvider::requestPixmap(const QString &path, QSize *, const QSize &requestedSize) {
+auto PixmapProvider::requestPixmap(const QString &path, QSize *, const QSize &requestedSize) -> QPixmap {
 	const auto cache_id = string("cache:%1x%2:path:%3").arg(string::number(requestedSize.width()), string::number(requestedSize.height()), path);
 
 	QPixmap ret;

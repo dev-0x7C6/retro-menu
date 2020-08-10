@@ -14,7 +14,7 @@
 
 constexpr auto PIXMAP_CACHE_SIZE = 32 * 1024; // 32 MiB
 
-int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
+auto gui_main(int argc, char *argv[], ProcessSchedule &schedule) -> int {
 	libretro::CoreLibrary library;
 
 	QGuiApplication app(argc, argv);
@@ -42,7 +42,7 @@ int gui_main(int argc, char *argv[], ProcessSchedule &schedule) {
 	return app.exec();
 }
 
-QString args_to_string(int argc, char *argv[]) {
+auto args_to_string(int argc, char *argv[]) -> QString {
 	QString ret;
 
 	for (auto i = 0; i < argc - 1; ++i)
@@ -52,7 +52,7 @@ QString args_to_string(int argc, char *argv[]) {
 	return ret;
 }
 
-int main(int argc, char *argv[]) {
+auto main(int argc, char *argv[]) -> int {
 
 	ProcessSchedule schedule(args_to_string(argc, argv));
 	return gui_main(argc, argv, schedule);

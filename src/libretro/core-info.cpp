@@ -3,18 +3,18 @@
 
 #include <QDirIterator>
 #include <QFileInfo>
-#include <QSettings>
 #include <QSet>
+#include <QSettings>
 
 #include <iostream>
 
 using namespace ::libretro;
 
-string read_string(const settings &settings, string &&key, const string &default_value = {}) {
+auto read_string(const settings &settings, string &&key, const string &default_value = "") -> string {
 	return settings.value(key, default_value).toString();
 }
 
-core_info libretro::load_core_info(const file_info &file) noexcept {
+auto libretro::load_core_info(const file_info &file) noexcept -> core_info {
 	settings source(file.absoluteFilePath(), QSettings::IniFormat);
 	core_info info{};
 	info.name = file.baseName();
@@ -59,7 +59,7 @@ core_info libretro::load_core_info(const file_info &file) noexcept {
 	return info;
 }
 
-core_info_list libretro::prepare_core_info_list(const string &path) noexcept
+auto libretro::prepare_core_info_list(const string &path) noexcept -> core_info_list
 {
 	core_info_list ret;
 
@@ -74,7 +74,7 @@ core_info_list libretro::prepare_core_info_list(const string &path) noexcept
 	return ret;
 }
 
-core_list libretro::prepare_core_list(const string &path) noexcept
+auto libretro::prepare_core_list(const string &path) noexcept -> core_list
 {
 	core_list ret;
 

@@ -2,10 +2,11 @@
 
 #include <QCoreApplication>
 #include <QProcess>
+#include <utility>
 
-ProcessSchedule::ProcessSchedule(const string &program, QObject *parent)
+ProcessSchedule::ProcessSchedule(string program, QObject *parent)
 		: QObject(parent)
-		, m_program(program) {}
+		, m_program(std::move(program)) {}
 
 void ProcessSchedule::schedule(const string &proc) {
 	m_scheduledCommands << proc;
