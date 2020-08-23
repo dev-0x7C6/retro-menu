@@ -3,8 +3,6 @@
 
 #include <core-library.hpp>
 
-#include <QString>
-
 using namespace libretro;
 using namespace std;
 
@@ -52,7 +50,7 @@ auto check_for_missing_signatures(const core_info_list &info_list, const core_li
 			cerr << "missing: " << core.name.toStdString() << " has no info signature." << endl;
 }
 
-auto check_for_required_firmware(const core_info_list &info_list, const core_list &cores) -> void {
+auto check_for_required_firmware(const core_info_list &info_list, const core_list &cores) {
 	for (auto &&core : cores) {
 		if (auto info = find_core_info(core, info_list); info.has_value())
 			for (auto &&fw_file : info->firmware)
@@ -61,7 +59,7 @@ auto check_for_required_firmware(const core_info_list &info_list, const core_lis
 	}
 }
 
-auto check_for_optional_firmware(const core_info_list &info_list, const core_list &cores) -> void {
+auto check_for_optional_firmware(const core_info_list &info_list, const core_list &cores) {
 	for (auto &&core : cores) {
 		if (auto info = find_core_info(core, info_list); info.has_value())
 			for (auto &&fw_file : info->firmware)
@@ -82,12 +80,14 @@ auto main(int, char *[]) -> int {
 	cout << available_cores.size() << " libretro cores found." << endl;
 	cout << info_list.size() << " libretro signatures available." << endl;
 
-	title_box("Missing info signatures");
+	title_box("Missing info signatures"sv);
 	check_for_missing_signatures(info_list, available_cores);
 
-	title_box("Firmware requirements");
+	title_box("Firmware requirements"sv);
 	check_for_required_firmware(info_list, available_cores);
 
-	title_box("Firmware requirements (optional firmware)");
+	title_box("Firmware requirements (optional firmware)"sv);
 	check_for_optional_firmware(info_list, available_cores);
+
+	return 0;
 }
