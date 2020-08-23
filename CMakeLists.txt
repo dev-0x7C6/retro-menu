@@ -14,8 +14,13 @@ include("cmake/paths.cmake")
 
 configure_file("src/config.hpp.in" "config.hpp")
 
+option(LIBRETRO_ANALYSE "Additional tool to sanitize configuration" ON)
+
 add_subdirectory("src/libretro")
-add_subdirectory("src/libretro-analyse")
+
+if (LIBRETRO_ANALYSE)
+    add_subdirectory("src/libretro-analyse")
+endif()
 
 set (sources
     "src/config.hpp"
