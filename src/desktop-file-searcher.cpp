@@ -44,7 +44,9 @@ auto load_desktop_file(std::string_view &&path) -> std::optional<desktop_file_pr
 
 	desktop_file_properties ret;
 
-	ret.exec = read_settings(settings, name(desktop_file_property::exec));
+	static QRegExp parameter(" %.");
+
+	ret.exec = read_settings(settings, name(desktop_file_property::exec)).remove(parameter);
 	ret.icon = read_settings(settings, name(desktop_file_property::icon));
 	ret.name = read_settings(settings, name(desktop_file_property::name));
 
