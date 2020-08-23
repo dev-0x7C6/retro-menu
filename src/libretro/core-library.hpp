@@ -10,7 +10,8 @@ namespace libretro {
 
 class CoreLibrary {
 public:
-	CoreLibrary();
+	auto info_list() noexcept -> const core_info_list &;
+	auto available_cores() noexcept -> const core_list &;
 
 private:
 	core_info_list m_core_infos{prepare_core_info_list()};

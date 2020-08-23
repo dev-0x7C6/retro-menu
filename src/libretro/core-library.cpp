@@ -1,10 +1,12 @@
 #include <core-library.hpp>
 #include <paths.hpp>
 
-#include <iostream>
-
 using namespace ::libretro;
 
-CoreLibrary::CoreLibrary() {
-	std::cout << m_available_cores.size() << " libretro cores found." << std::endl;
+auto CoreLibrary::info_list() noexcept -> const core_info_list & {
+	return m_core_infos;
+}
+
+auto CoreLibrary::available_cores() noexcept -> const core_list & {
+	return m_available_cores;
 }

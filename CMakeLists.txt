@@ -15,6 +15,7 @@ include("cmake/paths.cmake")
 configure_file("src/config.hpp.in" "config.hpp")
 
 add_subdirectory("src/libretro")
+add_subdirectory("src/libretro-analyse")
 
 set (sources
     "src/config.hpp"
