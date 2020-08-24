@@ -81,6 +81,8 @@ auto main(int, char *[]) -> int {
 	auto &&available_cores = library.available_cores();
 	auto &&info_list = library.info_list();
 
+	title_box("Found libretro cores"sv);
+
 	for (auto &&core : available_cores)
 		std::cout << "found: " << core.name.toStdString() << std::endl;
 
