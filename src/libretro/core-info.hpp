@@ -10,6 +10,7 @@ namespace libretro {
 struct core {
 	string name;
 	string full_name;
+	string full_path;
 };
 
 struct core_info {

@@ -79,6 +79,7 @@ auto libretro::prepare_core_list(const string &path) noexcept -> core_list
 		core item;
 		item.name = info.baseName();
 		item.full_name = info.fileName();
+		item.full_path = info.absoluteFilePath();
 		ret.emplace_back(std::move(item));
 	}
 

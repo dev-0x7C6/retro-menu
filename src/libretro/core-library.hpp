@@ -2,16 +2,20 @@
 
 #include <core-info.hpp>
 #include <functional>
+#include <optional>
 
 #include <QMap>
 #include <QSet>
 
 namespace libretro {
 
+auto find_core_info(const core &core, const core_info_list &info_list) -> std::optional<core_info>;
+
 class CoreLibrary {
 public:
-	auto info_list() noexcept -> const core_info_list &;
-	auto available_cores() noexcept -> const core_list &;
+	auto info_list() const noexcept -> const core_info_list &;
+	auto available_cores() const noexcept -> const core_list &;
+	auto core_info(const core &) const noexcept -> std::optional<core_info>;
 
 private:
 	core_info_list m_core_infos{prepare_core_info_list()};

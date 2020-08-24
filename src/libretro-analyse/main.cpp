@@ -33,17 +33,6 @@ auto title_box(std::string_view &&title, uint64_t spacer = 4) -> void {
 		 << endl;
 }
 
-auto find_core_info(const core &core, const core_info_list &info_list) -> std::optional<core_info> {
-	auto item = std::find_if(info_list.cbegin(), info_list.cend(), [&core](const core_info &match) -> bool {
-		return core.name == match.name;
-	});
-
-	if (item != std::end(info_list))
-		return *item;
-
-	return std::nullopt;
-}
-
 auto check_for_missing_signatures(const core_info_list &info_list, const core_list &cores) {
 	for (auto &&core : cores)
 		if (!find_core_info(core, info_list).has_value())
