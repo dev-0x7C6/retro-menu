@@ -86,6 +86,18 @@ auto check_for_supported_systems(const core_info_list &info_list, std::optional<
 	}
 }
 
+auto check_for_supported_manufacturers(const core_info_list &info_list, std::optional<std::reference_wrapper<CoreLibrary>> library = std::nullopt) {
+	std::set<string> manufactures;
+
+	for (auto &&info : info_list)
+		if (!info.manufacturer.isEmpty())
+			manufactures.insert(info.manufacturer);
+
+	for (auto &&manufacturer : manufactures) {
+		std::cout << manufacturer.toStdString() << std::endl;
+	}
+}
+
 auto main(int, char *[]) -> int {
 	CoreLibrary library;
 
@@ -114,6 +126,9 @@ auto main(int, char *[]) -> int {
 
 	title_box("Supported systems"sv);
 	check_for_supported_systems(info_list, library);
+
+	title_box("Supported manufacturers"sv);
+	check_for_supported_manufacturers(info_list);
 
 	return 0;
 }
