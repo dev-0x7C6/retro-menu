@@ -54,8 +54,7 @@ auto libretro::load_core_info(const file_info &file) noexcept -> core_info {
 	return info;
 }
 
-auto libretro::prepare_core_info_list(const string &path) noexcept -> core_info_list
-{
+auto libretro::prepare_core_info_list(const string &path) noexcept -> core_info_list {
 	core_info_list ret;
 
 	dir_iterator it(path, {"*.info"});
@@ -69,8 +68,7 @@ auto libretro::prepare_core_info_list(const string &path) noexcept -> core_info_
 	return ret;
 }
 
-auto libretro::prepare_core_list(const string &path) noexcept -> core_list
-{
+auto libretro::prepare_core_list(const string &path) noexcept -> core_list {
 	core_list ret;
 
 	dir_iterator it(path, {"*.so"});
@@ -88,4 +86,188 @@ auto libretro::prepare_core_list(const string &path) noexcept -> core_list
 	});
 
 	return ret;
+}
+
+consteval auto libretro::to_string(const system_id id) noexcept -> const char * {
+	switch (id) {
+		case system_id::J2ME: return "J2ME";
+		case system_id::_3do: return "3do";
+		case system_id::_3ds: return "3ds";
+		case system_id::amiga: return "amiga";
+		case system_id::atari_2600: return "atari_2600";
+		case system_id::atari_5200: return "atari_5200";
+		case system_id::atari_7800: return "atari_7800";
+		case system_id::atari_jaguar: return "atari_jaguar";
+		case system_id::atari_lynx: return "atari_lynx";
+		case system_id::atari_st: return "atari_st";
+		case system_id::chailove: return "chailove";
+		case system_id::chip_8: return "chip_8";
+		case system_id::commodore_128: return "commodore_128";
+		case system_id::commodore_64: return "commodore_64";
+		case system_id::commodore_64_supercpu: return "commodore_64_supercpu";
+		case system_id::commodore_cbm2: return "commodore_cbm2";
+		case system_id::commodore_cbm5x0: return "commodore_cbm5x0";
+		case system_id::commodore_pet: return "commodore_pet";
+		case system_id::commodore_plus_4: return "commodore_plus_4";
+		case system_id::commodore_vic_20: return "commodore_vic_20";
+		case system_id::cpc: return "cpc";
+		case system_id::daphne: return "daphne";
+		case system_id::dos: return "dos";
+		case system_id::dreamcast: return "dreamcast";
+		case system_id::fb_alpha: return "fb_alpha";
+		case system_id::game_boy: return "game_boy";
+		case system_id::game_boy_advance: return "game_boy_advance";
+		case system_id::gamecube: return "gamecube";
+		case system_id::hbmame: return "hbmame";
+		case system_id::intellivision: return "intellivision";
+		case system_id::mame: return "mame";
+		case system_id::master_system: return "master_system";
+		case system_id::mega_drive: return "mega_drive";
+		case system_id::msx: return "msx";
+		case system_id::nds: return "nds";
+		case system_id::neo_geo_pocket: return "neo_geo_pocket";
+		case system_id::nes: return "nes";
+		case system_id::nintendo_64: return "nintendo_64";
+		case system_id::nxengine: return "nxengine";
+		case system_id::odyssey2: return "odyssey2";
+		case system_id::pc_88: return "pc_88";
+		case system_id::pc_98: return "pc_98";
+		case system_id::pc_engine: return "pc_engine";
+		case system_id::pc_fx: return "pc_fx";
+		case system_id::playstation2: return "playstation2";
+		case system_id::playstation: return "playstation";
+		case system_id::playstation_portable: return "playstation_portable";
+		case system_id::pokemon_mini: return "pokemon_mini";
+		case system_id::scummvm: return "scummvm";
+		case system_id::sega_saturn: return "sega_saturn";
+		case system_id::sharp_x68000: return "sharp_x68000";
+		case system_id::super_nes: return "super_nes";
+		case system_id::tic80: return "tic80";
+		case system_id::uzebox: return "uzebox";
+		case system_id::vectrex: return "vectrex";
+		case system_id::virtual_boy: return "virtual_boy";
+		case system_id::wonderswan: return "wonderswan";
+		case system_id::zx81: return "zx81";
+		case system_id::zx_spectrum: return "zx_spectrum";
+	}
+
+	return {};
+}
+
+auto libretro::system_id_directory_matches(const system_id id) noexcept -> string_list {
+	switch (id) {
+		case system_id::_3do:
+			return {"3do"};
+		case system_id::_3ds:
+			return {"3ds", "nintendo_3ds", "nintendo-3ds"};
+		case system_id::J2ME:
+			return {"j2me"};
+		case system_id::amiga:
+			return {"amiga"};
+		case system_id::atari_2600:
+			return {"atari_2600", "atari-2600"};
+		case system_id::atari_5200:
+			return {"atari_5200", "atari-5200"};
+		case system_id::atari_7800:
+			return {"atari_7800", "atari-7800"};
+		case system_id::atari_jaguar:
+			return {"atari_jaguar", "atari-jaguar", "jaguar"};
+		case system_id::atari_lynx:
+			return {"atari_lynx", "atari-lynx", "lynx"};
+		case system_id::atari_st:
+			return {"atari_st", "atari-st"};
+		case system_id::chailove:
+			return {"chailove"};
+		case system_id::chip_8:
+			return {"chip_8", "chip-8", "emux"};
+		case system_id::commodore_128:
+		case system_id::commodore_64:
+		case system_id::commodore_64_supercpu:
+		case system_id::commodore_cbm2:
+		case system_id::commodore_cbm5x0:
+		case system_id::commodore_pet:
+		case system_id::commodore_plus_4:
+		case system_id::commodore_vic_20:
+			return {"c64", "commodore64", "commodore"};
+		case system_id::cpc:
+			return {"cpc"};
+		case system_id::daphne:
+			return {"daphne"};
+		case system_id::dos:
+			return {"dos", "msdos", "ms-dos", "ms_dos"};
+		case system_id::dreamcast:
+			return {"dreamcast", "dc"};
+		case system_id::fb_alpha:
+			return {"fba", "fb_alpha", "fb-alpha"};
+		case system_id::game_boy:
+			return {"gameboy", "gb"};
+		case system_id::game_boy_advance:
+			return {"gba"};
+		case system_id::gamecube:
+			return {"ngc", "gamecube"};
+		case system_id::hbmame:
+			return {"mame"};
+		case system_id::intellivision:
+			return {"intellivision"};
+		case system_id::mame:
+			return {"mame"};
+		case system_id::master_system:
+			return {"sms", "master_system", "master-system"};
+		case system_id::mega_drive:
+			return {"smd", "mega_drive", "mega-drive"};
+		case system_id::msx:
+			return {"msx", "msx2", "msx2+"};
+		case system_id::nds:
+			return {"nds"};
+		case system_id::neo_geo_pocket:
+			return {"neogeo_pocket", "neogeo-pocket"};
+		case system_id::nes:
+			return {"nes"};
+		case system_id::nintendo_64:
+			return {"n64"};
+		case system_id::nxengine:
+			return {"nxengine", "nxe"};
+		case system_id::odyssey2:
+			return {"odyssey2"};
+		case system_id::pc_88:
+			return {"pc88", "pc_88", "pc-88"};
+		case system_id::pc_98:
+			return {"pc98", "pc_98", "pc-98"};
+		case system_id::pc_engine:
+			return {"pc_engine", "pc-engine", "pce"};
+		case system_id::pc_fx:
+			return {"pcfx", "pc_fx", "pc-fx"};
+		case system_id::playstation:
+			return {"psx", "ps", "ps1", "psone", "playstation"};
+		case system_id::playstation2:
+			return {"ps2", "playstation2"};
+		case system_id::playstation_portable:
+			return {"psp"};
+		case system_id::pokemon_mini:
+			return {"pokemon_mini"};
+		case system_id::scummvm:
+			return {"scummvm"};
+		case system_id::sega_saturn:
+			return {"saturn", "sega_saturn", "sega-saturn"};
+		case system_id::sharp_x68000:
+			return {"sharp_x68000", "x68000"};
+		case system_id::super_nes:
+			return {"snes", "nintendo_snes", "nintendo-snes"};
+		case system_id::tic80:
+			return {"tic80", "tic"};
+		case system_id::uzebox:
+			return {"uzebox"};
+		case system_id::vectrex:
+			return {"vectrex"};
+		case system_id::virtual_boy:
+			return {"virtualboy", "virtual_boy", "virtual-boy"};
+		case system_id::wonderswan:
+			return {"wonderswan"};
+		case system_id::zx81:
+			return {"zx81"};
+		case system_id::zx_spectrum:
+			return {"zxspectrum", "zx_spectrum", "zx-spectrum"};
+	}
+
+	return {};
 }
