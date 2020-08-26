@@ -4,14 +4,9 @@
 #include <paths.hpp>
 
 #include <QStringList>
+#include <memory>
 
 namespace libretro {
-
-struct core {
-	string name;
-	string full_name;
-	string full_path;
-};
 
 struct core_info {
 	string name;
@@ -32,6 +27,13 @@ struct core_info {
 	string_list supported_extensions;
 
 	firmware_list firmware;
+};
+
+struct core {
+	string name;
+	string full_name;
+	string full_path;
+	std::optional<core_info> info;
 };
 
 using core_info_list = std::vector<core_info>;
