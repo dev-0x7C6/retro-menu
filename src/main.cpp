@@ -31,6 +31,7 @@ auto gui_main(int argc, char *argv[], ProcessSchedule &schedule) -> int {
 	libretro::CoreLibrary library;
 
 	QGuiApplication app(argc, argv);
+	app.setApplicationName("RetroMenu");
 	app.setApplicationVersion(PROJECT_VERSION);
 	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 

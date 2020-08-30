@@ -9,7 +9,7 @@ Window {
 	visible: true
     width: 1280
     height: 720
-    title: qsTr("RetroMenu")
+    title: Qt.application.name + " v" + Qt.application.version
     color: "black"
 
     property string programToRun: ""
