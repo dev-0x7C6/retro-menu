@@ -1,10 +1,10 @@
+#include <QDir>
 #include <QGuiApplication>
 #include <QPixmapCache>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QSettings>
 #include <QSortFilterProxyModel>
-#include <QDir>
 
 #include <desktop-file-searcher.hpp>
 #include <libretro/core-library.hpp>
@@ -31,6 +31,7 @@ auto gui_main(int argc, char *argv[], ProcessSchedule &schedule) -> int {
 	libretro::CoreLibrary library;
 
 	QGuiApplication app(argc, argv);
+	app.setApplicationVersion(PROJECT_VERSION);
 	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 
 	MenuEntryModel model;
@@ -66,8 +67,10 @@ auto args_to_string(int argc, char *argv[]) -> QString {
 	return ret;
 }
 
-auto main(int argc, char *argv[]) -> int {
+#include <iostream>
 
+auto main(int argc, char *argv[]) -> int {
+	std::cout << "retro-menu: version: " << PROJECT_VERSION << std::endl;
 	ProcessSchedule schedule(args_to_string(argc, argv));
 	return gui_main(argc, argv, schedule);
 }
