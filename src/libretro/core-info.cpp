@@ -24,7 +24,10 @@ auto libretro::load_core_info(const file_info &file) noexcept -> core_info {
 		return read_string(source, std::move(key));
 	};
 
-	const auto split = [](string &&key) {
+	const auto split = [](string &&key) -> string_list {
+		if (key.isEmpty())
+			return {};
+
 		return key.split('|');
 	};
 
@@ -39,6 +42,7 @@ auto libretro::load_core_info(const file_info &file) noexcept -> core_info {
 	info.authors = split(read("authors"));
 	info.display_name = read("display_name");
 	info.supported_extensions = split(read("supported_extensions"));
+	info.database = split(read("database"));
 
 	const auto firmware_count = read("firmware_count").toInt();
 

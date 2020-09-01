@@ -79,7 +79,6 @@ struct core_info {
 	bool is_found{false};
 
 	string corename;
-	string database;
 	string display_name;
 	string display_version;
 	string license;
@@ -89,6 +88,7 @@ struct core_info {
 	string systemname;
 
 	string_list authors;
+	string_list database;
 	string_list supported_extensions;
 
 	firmware_list firmware;
