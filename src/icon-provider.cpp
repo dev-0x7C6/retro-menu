@@ -26,9 +26,9 @@ auto preferred_size_icon(const string_list &paths, std::initializer_list<int> si
 
 IconProvider::IconProvider(const string_list &search_paths) {
 	for (const auto &path : search_paths) {
-		QDirIterator it(path, QDir::Files, QDirIterator::Subdirectories);
+		dir_iterator it(path, QDir::Files, QDirIterator::Subdirectories);
 		while (it.hasNext()) {
-			QFileInfo info(it.next());
+			file_info info(it.next());
 			m_iconMap[info.baseName()] += info.absoluteFilePath();
 		}
 	}
