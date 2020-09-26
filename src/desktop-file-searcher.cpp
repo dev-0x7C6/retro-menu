@@ -7,17 +7,15 @@ enum class desktop_file_property {
 	exec,
 	icon,
 	name,
-	last,
 };
 
 constexpr auto desktop_file_property_list = {desktop_file_property::exec, desktop_file_property::icon, desktop_file_property::name};
 
-constexpr auto name(const desktop_file_property value) noexcept -> const char * {
+consteval auto name(const desktop_file_property value) noexcept -> const char * {
 	switch (value) {
 		case desktop_file_property::exec: return "Exec";
 		case desktop_file_property::icon: return "Icon";
 		case desktop_file_property::name: return "Name";
-		case desktop_file_property::last: return "";
 	}
 
 	return nullptr;
@@ -38,6 +36,18 @@ auto read_settings(QSettings &settings, string &&key, string &&default_value = {
 	return ret.toString();
 }
 
+// clang-format off
+template <typename T>
+concept EnumWithName = std::is_enum_v<T> && requires(T v) {
+	{ name(v) } -> std::same_as<const char *>;
+};
+// clang-format on
+
+template <EnumWithName auto enum_value>
+auto read_enum(QSettings &settings, string &&default_value = {}) -> string {
+	return read_settings(settings, name(enum_value), std::move(default_value));
+}
+
 auto load_desktop_file(std::string_view &&path) -> std::optional<desktop_file_properties> {
 	QSettings settings(QString::fromUtf8(path.data(), path.size()), QSettings::IniFormat);
 	settings.beginGroup("Desktop Entry");
@@ -46,9 +56,9 @@ auto load_desktop_file(std::string_view &&path) -> std::optional<desktop_file_pr
 
 	static QRegExp parameter(" %.");
 
-	ret.exec = read_settings(settings, name(desktop_file_property::exec)).remove(parameter);
-	ret.icon = read_settings(settings, name(desktop_file_property::icon));
-	ret.name = read_settings(settings, name(desktop_file_property::name));
+	ret.exec = read_enum<desktop_file_property::exec>(settings).remove(parameter);
+	ret.icon = read_enum<desktop_file_property::icon>(settings);
+	ret.name = read_enum<desktop_file_property::name>(settings);
 
 	if (ret.exec.isEmpty() || ret.name.isEmpty() || ret.icon.isEmpty())
 		return std::nullopt;
